@@ -1,0 +1,211 @@
+{
+ "https://careers.invesco.com": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd1",
+   "site": "IVZ",
+   "tenant": "invesco"
+  }
+ },
+ "https://welltower.com/careers/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.aberdeenplc.com/en-gb/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd3",
+   "site": "abrdn",
+   "tenant": "abrdn"
+  }
+ },
+ "https://www.apollo.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd5",
+   "site": "Apollo_Careers",
+   "tenant": "athene"
+  }
+ },
+ "https://www.blackstone.com/careers/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd1",
+   "site": "Blackstone_Careers",
+   "tenant": "blackstone"
+  }
+ },
+ "https://www.bluenoble.co.uk": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.brookfield.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.cainint.com/career-oportunities": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.catella.com/en/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.cbreim.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.clarionpartners.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd5",
+   "site": "Jobs-Clarion",
+   "tenant": "franklintempleton"
+  }
+ },
+ "https://www.cobaltrecruitment.co.uk/jobs": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.curlewcapital.co.uk": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.edmond-de-rothschild.com/en/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.getliving.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.greystar.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd1",
+   "site": "External",
+   "tenant": "greystar"
+  }
+ },
+ "https://www.harrisonst.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "lever",
+   "eu": false,
+   "slug": "harrisonst"
+  }
+ },
+ "https://www.heitman.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.kennedywilson.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.kkr.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.macdonaldandcompany.com/jobs": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.madisonberkeley.com/jobs": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.man.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.mandg.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd3",
+   "site": "mandgprudential",
+   "tenant": "mgpru"
+  }
+ },
+ "https://www.metlife.com/careers/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.modaliving.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.nuveen.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.pgim.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.quintain.co.uk/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.schroders.com/en/global/individual/careers/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ },
+ "https://www.starwoodcapital.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  }
+ }
+}
