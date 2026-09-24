@@ -57,6 +57,7 @@ class Filter:
         self.am = compile_words(cfg["tracks"]["asset_management"])
         self.inv = compile_words(cfg["tracks"]["investments"])
         self.europe = compile_words(cfg.get("europe_keywords") or [])
+        self.abroad = compile_words(cfg.get("exclude_places") or [])
         self.europe_only = bool(cfg.get("europe_only"))
 
     def is_europe(self, job):
@@ -73,6 +74,9 @@ class Filter:
             if not self.sector.search(f"{title} {job.get('department', '')}"):
                 return False
         if self.europe_only and not self.is_europe(job):
+            return False
+        where = f"{title} {job.get('location', '')}"
+        if self.abroad and self.abroad.search(where) and not self.locations.search(where):
             return False
         loc = job.get("location", "")
         if loc and self.locations and not self.locations.search(loc):
@@ -193,6 +197,9 @@ def add_contacts(history, limit, today):
         except Exception:
             found = {}
         set_posted(rec, found.pop("posted", ""), today)
+        where = found.pop("location", "")
+        if where and (not rec.get("location") or re.match(r"\d+ locations", rec["location"], re.I)):
+            rec["location"] = where
         rec["contact"] = found or rec.get("contact") or {}
         rec["details_checked"] = True
 
@@ -318,6 +325,17 @@ def main():
     c_cfg = cfg.get("contacts") or {}
     if c_cfg.get("enabled", True):
         add_contacts(history, c_cfg.get("max_per_run", 80), today)
+
+    # Re-check every open role against today's filters, so tightened settings
+    # and locations found on the advert page also clear out earlier entries.
+    by_name = {f["name"]: f for f in firms}
+    for jid in list(history):
+        rec = history[jid]
+        if not rec.get("active"):
+            continue
+        fcfg = {"trust_titles": True} if rec["kind"] == "linkedin" else by_name.get(rec["source"], {})
+        if not flt.keep(rec, fcfg):
+            del history[jid]
 
     # Drop roles closed more than 60 days ago to keep the file small.
     cutoff = (dt.date.today() - dt.timedelta(days=60)).isoformat()

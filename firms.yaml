@@ -55,6 +55,50 @@ filters:
     - paralegal
     - recruit
     - facilities
+  # Roles whose title or location names one of these places are dropped,
+  # unless London is also mentioned. Adverts often give no location field, so
+  # this catches "Associate, Singapore" and similar.
+  exclude_places:
+    - asia
+    - apac
+    - asia pacific
+    - hong kong
+    - singapore
+    - tokyo
+    - japan
+    - seoul
+    - korea
+    - shanghai
+    - beijing
+    - china
+    - mumbai
+    - india
+    - bangalore
+    - sydney
+    - melbourne
+    - australia
+    - dubai
+    - abu dhabi
+    - riyadh
+    - middle east
+    - americas
+    - north america
+    - united states
+    - usa
+    - new york
+    - chicago
+    - dallas
+    - atlanta
+    - boston
+    - los angeles
+    - san francisco
+    - denver
+    - miami
+    - toronto
+    - canada
+    - latin america
+    - brazil
+    - mexico
   # Only for firms marked broad: true (multi-asset managers with thousands of
   # jobs). The title or department must also contain one of these.
   sector_keywords:
