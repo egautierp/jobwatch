@@ -21,7 +21,7 @@ from pathlib import Path
 
 import yaml
 
-from . import contacts, dedupe, linkedin, sources
+from . import contacts, dates, dedupe, linkedin, sources
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -150,6 +150,7 @@ class Tracker:
             if not rec.get("active"):
                 rec["reposted"] = self.today
         hits.add(source)
+        set_posted(rec, job.get("posted"), self.today)
         rec.update(last_seen=self.today, active=True, closed=None)
 
     def close_missing(self, ok_sources):
@@ -174,15 +175,26 @@ class Tracker:
                 rec["maybe_same"] = {"id": best["id"], "firm": best["firm"], "title": best["title"]}
 
 
-def add_contacts(history, limit):
+def set_posted(rec, value, today):
+    """Keep the earliest posting date any source reports for this role."""
+    iso, approx = dates.parse_posted(value, today)
+    if iso and (not rec.get("posted_on") or iso < rec["posted_on"]):
+        rec["posted_on"], rec["posted_approx"] = iso, approx
+
+
+def add_contacts(history, limit, today):
+    """Open each new advert once for contact details and its posting date."""
     todo = [r for r in history.values()
-            if r.get("active") and "contact" not in r and r["kind"] != "linkedin"][:limit]
+            if r.get("active") and not r.get("details_checked") and r["kind"] != "linkedin"][:limit]
 
     def one(rec):
         try:
-            rec["contact"] = contacts.find(rec["url"])
+            found = contacts.find(rec["url"])
         except Exception:
-            rec["contact"] = {}
+            found = {}
+        set_posted(rec, found.pop("posted", ""), today)
+        rec["contact"] = found or rec.get("contact") or {}
+        rec["details_checked"] = True
 
     with ThreadPoolExecutor(max_workers=6) as pool:
         list(pool.map(one, todo))
@@ -230,6 +242,8 @@ def send_digest(new_jobs, site_url):
         if same:
             extra += (f"<br>Possibly the same role as {escape(same['title'])} "
                       f"at {escape(same['firm'])}")
+        if j.get("posted_on"):
+            extra += f"<br>Posted {'before ' if j.get('posted_approx') else ''}{j['posted_on']}"
         rows.append(f'<p><a href="{escape(j["url"])}">{escape(j["title"])}</a><br>'
                     f'{escape(j["firm"])}, {escape(j["location"] or "location not listed")}'
                     f'{via(j)}{extra}</p>')
@@ -258,7 +272,7 @@ def main():
     if args.detect:
         for f in firms:
             try:
-                conf, _ = sources.resolve(f, {}, today)
+                conf = sources.resolve(f, {}, today)[0]
                 print(f"{f['name']:<32} {conf}")
             except Exception as e:
                 print(f"{f['name']:<32} ERROR {e}")
@@ -303,7 +317,7 @@ def main():
     tracker.flag_recruiter_matches()
     c_cfg = cfg.get("contacts") or {}
     if c_cfg.get("enabled", True):
-        add_contacts(history, c_cfg.get("max_per_run", 80))
+        add_contacts(history, c_cfg.get("max_per_run", 80), today)
 
     # Drop roles closed more than 60 days ago to keep the file small.
     cutoff = (dt.date.today() - dt.timedelta(days=60)).isoformat()

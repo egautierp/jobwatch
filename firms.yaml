@@ -70,13 +70,11 @@ filters:
   # location are always kept.
   locations:
     - london
-    - remote
   # Roles whose title or department mentions any of these get a Europe tag on
   # the page. Set europe_only to true to keep only those roles.
   europe_only: false
   europe_keywords:
     - europe
-    - UK
     - emea
     - continental
     - cross-border
@@ -160,7 +158,7 @@ firms:
   - {name: Hines, careers_url: "https://www.hines.com/careers"}
   - {name: LaSalle, careers_url: "https://www.lasalle.com/careers/"}
   - {name: CBRE Investment Management, careers_url: "https://www.cbreim.com/careers"}
-  - {name: Savills IM, careers_url: "https://www.savillsim.com/careers"}
+  - {name: Savills IM, careers_url: "https://careers.savillsim.com"}
   - {name: Starwood Capital, careers_url: "https://www.starwoodcapital.com/careers"}
   - {name: Tristan Capital Partners, careers_url: "https://www.tristancap.com/careers"}
   - {name: Clarion Partners, careers_url: "https://www.clarionpartners.com/careers"}
@@ -173,7 +171,7 @@ firms:
   - {name: Ares, careers_url: "https://www.aresmgmt.com/careers", broad: true}
   - {name: PGIM, careers_url: "https://www.pgim.com/careers", broad: true}
   - {name: Nuveen, careers_url: "https://www.nuveen.com/careers", broad: true}
-  - {name: DWS, careers_url: "https://careers.dws.com", broad: true}
+  - {name: DWS, careers_url: "https://www.dws.com/", broad: true}
   - {name: Invesco, careers_url: "https://careers.invesco.com", broad: true}
   - {name: Barings, careers_url: "https://www.barings.com/careers", broad: true}
   - {name: Legal & General, careers_url: "https://www.legalandgeneralgroup.com/careers/", broad: true}
@@ -185,14 +183,12 @@ firms:
   # From the London residential investment managers list (Sep 2026).
   # Smaller firms often have no careers page and hire through recruiters or
   # LinkedIn, so "0 listed" in the Sources table is normal for them.
-  - {name: Greykite, careers_url: "https://www.greykite.com/careers"}
   - {name: Heim Global Investor, careers_url: "https://www.heimgi.com/careers"}
   - {name: Amro Partners, careers_url: "https://www.amropartners.com/careers"}
-  - {name: Curlew Capital, careers_url: "https://www.curlewcapital.co.uk"}
+  - {name: Curlew Capital, careers_url: "https://www.curlewcapital.co.uk/"}
   - {name: LRC Group, careers_url: "https://lrceurope.com/careers"}
   - {name: GSA, careers_url: "https://www.gsagroup.com/careers"}
-  - {name: Pears Global Real Estate, careers_url: "https://www.pearsglobal.com"}
-  - {name: Blue Noble, careers_url: "https://www.bluenoble.co.uk"}
+  - {name: Blue Noble, careers_url: "https://www.bluenoble.co.uk/"}
   - {name: Cain International, careers_url: "https://www.cainint.com/career-oportunities"}
   - {name: Patron Capital, careers_url: "https://www.patroncapital.com/careers"}
   - {name: Europa Capital, careers_url: "https://www.europacapital.com/careers"}

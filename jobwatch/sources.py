@@ -83,22 +83,81 @@ def detect(text):
 
 
 def render(url):
-    """Load a page in headless Chromium for JavaScript-built careers pages."""
+    """Load a page in headless Chromium for JavaScript-built or bot-protected pages."""
     from playwright.sync_api import sync_playwright
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        page = browser.new_page(user_agent=UA)
-        page.goto(url, wait_until="networkidle", timeout=60000)
-        page.wait_for_timeout(1500)
+        context = browser.new_context(user_agent=UA, ignore_https_errors=True,
+                                      locale="en-GB")
+        page = context.new_page()
+        resp = page.goto(url, wait_until="domcontentloaded", timeout=60000)
+        try:
+            page.wait_for_load_state("networkidle", timeout=15000)
+        except Exception:
+            pass
+        page.wait_for_timeout(2000)
+        status = resp.status if resp else 0
         html = page.content()
         frames = "\n".join(f.url for f in page.frames)
+        final = page.url
         browser.close()
-    return html + "\n" + frames
+    if status == 404:
+        raise NotFound(url)
+    return html + "\n" + frames, final
+
+
+class NotFound(Exception):
+    pass
+
+
+def _swap_www(url):
+    p = urlparse(url)
+    host = p.netloc[4:] if p.netloc.startswith("www.") else "www." + p.netloc
+    return p._replace(netloc=host).geturl()
 
 
 def page_html(url, use_browser=False):
-    return render(url) if use_browser else _get(url).text
+    """Return (html, final_url). Falls back to a real browser when a site
+    blocks plain requests, and tries the other www form on certificate errors."""
+    if use_browser:
+        return render(url)
+    try:
+        r = session.get(url, timeout=TIMEOUT)
+        if r.status_code == 404:
+            raise NotFound(url)
+        r.raise_for_status()
+        return r.text, r.url
+    except NotFound:
+        raise
+    except requests.exceptions.SSLError:
+        try:
+            r = _get(_swap_www(url))
+            return r.text, r.url
+        except Exception:
+            return render(url)
+    except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout):
+        return render(url)
+
+
+_CAREERS_LINK = re.compile(r"career|vacanc|join[ -]?us|work[ -]?(with|for)[ -]?us|"
+                           r"opportunit|jobs|recruit", re.I)
+
+
+def find_careers_link(html, base):
+    soup = BeautifulSoup(html, "html.parser")
+    best = None
+    for a in soup.find_all("a", href=True):
+        href = urljoin(base, a["href"]).split("#")[0]
+        text = " ".join(a.get_text(" ").split())
+        if href.startswith(("mailto:", "tel:")) or len(text) > 40:
+            continue
+        if _CAREERS_LINK.search(text) or _CAREERS_LINK.search(urlparse(href).path):
+            if detect(href):
+                return href  # a direct link to a hiring system is best
+            best = best or href
+    return best
 
 
 # ----------------------------------------------------------------- adapters
@@ -132,7 +191,8 @@ def workday(c):
 def greenhouse(c):
     d = _get(f"https://boards-api.greenhouse.io/v1/boards/{c['slug']}/jobs").json()
     return [_job(j["title"], j["absolute_url"],
-                 (j.get("location") or {}).get("name"), j.get("updated_at", "")[:10])
+                 (j.get("location") or {}).get("name"),
+                 (j.get("first_published") or j.get("updated_at") or "")[:10])
             for j in d.get("jobs", [])]
 
 
@@ -206,6 +266,13 @@ def teamtailor(c):
     return out
 
 
+def teamtailor_feed(c):
+    """Teamtailor boards on a firm's own domain publish the same RSS feed."""
+    root = ET.fromstring(_get(c["feed"]).content)
+    return [_job(i.findtext("title"), i.findtext("link"), "", i.findtext("pubDate", ""))
+            for i in root.iter("item")]
+
+
 def personio(c):
     base = f"https://{c['slug']}.jobs.personio.{c.get('tld', 'de')}"
     root = ET.fromstring(_get(f"{base}/xml?language=en").content)
@@ -232,7 +299,8 @@ _ROLE_WORD = re.compile(
 def generic(c, html=None):
     """Scan a careers page for links that look like individual postings."""
     url = c["url"]
-    html = html or page_html(url, c.get("browser", False))
+    if html is None:
+        html, url = page_html(url, c.get("browser", False))
     soup = BeautifulSoup(html, "html.parser")
     out, seen = [], set()
     for a in soup.find_all("a", href=True):
@@ -251,25 +319,61 @@ def generic(c, html=None):
 ADAPTERS = {
     "workday": workday, "greenhouse": greenhouse, "lever": lever, "ashby": ashby,
     "smartrecruiters": smartrecruiters, "workable": workable,
-    "teamtailor": teamtailor, "personio": personio, "recruitee": recruitee,
+    "teamtailor": teamtailor, "teamtailor_feed": teamtailor_feed, "personio": personio, "recruitee": recruitee,
 }
 
 
+def _origin(url):
+    p = urlparse(url)
+    return f"{p.scheme}://{p.netloc}/"
+
+
+def _identify(url, html):
+    found = detect(url) or detect(html)
+    if not found and "teamtailor" in html.lower():
+        found = {"ats": "teamtailor_feed", "feed": _origin(url) + "jobs.rss"}
+    return found
+
+
 def resolve(firm, cache, today):
-    """Work out which adapter serves this firm. Results are cached for 7 days."""
+    """Work out which adapter serves this firm, cached for 7 days.
+
+    Returns (config, html, page_url). If the careers link is broken, the firm's
+    home page is searched for its careers link. If a plain page shows no jobs,
+    it is loaded again in a real browser.
+    """
     if firm.get("ats_url"):
         found = detect(firm["ats_url"])
         if found:
-            return found, None
+            return found, None, firm["ats_url"]
     key = firm["careers_url"]
     hit = cache.get(key)
-    if hit and hit.get("checked", "") >= today_minus(today, 7):
-        return hit["config"], None
-    html = page_html(key, firm.get("browser", False))
-    found = detect(key) or detect(html)
+    if hit and hit.get("checked", "") >= today_minus(today, 7) and hit["config"]["ats"] != "generic":
+        return hit["config"], None, hit.get("url", key)
+
+    use_browser = firm.get("browser", False)
+    try:
+        host = urlparse(key).netloc
+        if urlparse(key).path in ("", "/") and not host.startswith(("careers.", "jobs.")):
+            raise NotFound(key)  # a home page: look for its careers link
+        html, url = page_html(key, use_browser)
+    except NotFound:
+        home, _ = page_html(_origin(key), use_browser)
+        link = find_careers_link(home, _origin(key))
+        if not link:
+            raise NotFound(f"{key} not found and no careers link on the home page")
+        html, url = page_html(link, use_browser)
+
+    found = _identify(url, html)
+    if not found and not use_browser and not generic({"url": url}, html):
+        try:
+            html, url = render(url)
+            found = _identify(url, html)
+        except Exception:
+            pass
     config = found or {"ats": "generic"}
-    cache[key] = {"config": config, "checked": today}
-    return config, (None if found else html)
+    cache[key] = {"config": config, "checked": today, "url": url}
+    return config, html, url
 
 
 def today_minus(today, days):
@@ -278,9 +382,8 @@ def today_minus(today, days):
 
 
 def fetch(firm, cache, today):
-    config, html = resolve(firm, cache, today)
+    config, html, url = resolve(firm, cache, today)
     config = {**config, "search": firm.get("search", "")}
     if config["ats"] == "generic":
-        return "generic", generic({"url": firm["careers_url"],
-                                   "browser": firm.get("browser", False)}, html)
+        return "generic", generic({"url": url, "browser": firm.get("browser", False)}, html)
     return config["ats"], ADAPTERS[config["ats"]](config)

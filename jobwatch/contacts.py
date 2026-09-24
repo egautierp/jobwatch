@@ -19,6 +19,8 @@ NAME_LABEL = re.compile(
 NOT_PERSON = re.compile(
     r"^(noreply|no-reply|donotreply|privacy|dataprotection|data\.protection|gdpr|dpo|"
     r"unsubscribe|webmaster|support|marketing|press|media|complaints|accounts)", re.I)
+DATE_POSTED = re.compile(
+    r'(?:"datePosted"\s*:\s*"|itemprop="datePosted"[^>]*content=")([^"]+)"', re.I)
 BAD_NAME = {"Our Team", "The Team", "Apply Now", "Real Estate", "Asset Management",
             "Human Resources", "Find Out", "Click Here", "Contact Us"}
 
@@ -31,19 +33,24 @@ def _workday_api(url):
 
 
 def page_text(url):
-    """Return (visible text, list of mailto emails, list of tel numbers)."""
+    """Return (visible text, mailto emails, tel numbers, posting date text)."""
+    posted = ""
     if "myworkdayjobs.com" in url:
         d = sources._get(_workday_api(url)).json()
-        html = (d.get("jobPostingInfo") or {}).get("jobDescription", "")
+        info = d.get("jobPostingInfo") or {}
+        html = info.get("jobDescription", "")
+        posted = info.get("startDate", "")
     else:
         html = sources._get(url).text
+        m = DATE_POSTED.search(html)
+        posted = m.group(1) if m else ""
     soup = BeautifulSoup(html, "html.parser")
     mailto = [a["href"][7:].split("?")[0] for a in soup.select('a[href^="mailto:"]')]
     tel = [a["href"][4:] for a in soup.select('a[href^="tel:"]')]
     for tag in soup(["script", "style", "nav", "footer", "header"]):
         tag.decompose()
     main = soup.find("main") or soup.find("article") or soup
-    return main.get_text(" ", strip=True), mailto, tel
+    return main.get_text(" ", strip=True), mailto, tel, posted
 
 
 def extract(text, mailto=(), tel=()):
@@ -74,7 +81,11 @@ def extract(text, mailto=(), tel=()):
 
 
 def find(url):
+    """Contact details plus, under "posted", the advert's own posting date."""
     if "linkedin.com" in url:
         return {}
-    text, mailto, tel = page_text(url)
-    return extract(text, mailto, tel)
+    text, mailto, tel, posted = page_text(url)
+    out = extract(text, mailto, tel)
+    if posted:
+        out["posted"] = posted
+    return out

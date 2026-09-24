@@ -42,7 +42,8 @@ h1 { font: 600 34px/1.1 var(--serif); margin: 0; letter-spacing: -0.01em; }
 .views button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
 .views .n { font-weight: 400; margin-left: 4px; }
 
-.filters { display: grid; grid-template-columns: 1fr repeat(4, 150px); gap: 10px; margin-bottom: 8px; }
+.filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 8px; }
+.filters input { grid-column: span 2; }
 .filters input, .filters select { width: 100%; font: 400 14px var(--sans); color: var(--ink);
   background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 9px 10px; }
 
@@ -95,6 +96,10 @@ td a { color: var(--link); }
 
   <div class="filters">
     <input id="q" type="search" placeholder="Search title, firm or location" aria-label="Search">
+    <select id="sort" aria-label="Sort">
+      <option value="seen">Newest first seen</option>
+      <option value="posted">Newest posted</option>
+    </select>
     <select id="track" aria-label="Track">
       <option value="">All tracks</option>
       <option>Asset management</option>
@@ -135,7 +140,16 @@ function persist() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } c
 
 const today = new Date(); today.setHours(0, 0, 0, 0);
 function daysAgo(iso) { return Math.round((today - new Date(iso + "T00:00:00")) / 86400000); }
+const fmt = iso => new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+function postedText(j) {
+  if (!j.posted_on) return "posting date not shown";
+  const d = daysAgo(j.posted_on);
+  if (j.posted_approx) return `posted over ${d} days ago`;
+  const ago = d <= 0 ? "today" : d === 1 ? "yesterday" : `${d} days ago`;
+  return `posted ${fmt(j.posted_on)} (${ago})`;
+}
 function band(iso) {
+  if (!iso) return "Posting date not shown";
   const d = daysAgo(iso);
   if (d <= 0) return "Today";
   if (d === 1) return "Yesterday";
@@ -164,12 +178,15 @@ function render() {
   const firm = document.getElementById("firm").value;
   const region = document.getElementById("region").value;
   const source = document.getElementById("source").value;
+  const sortBy = document.getElementById("sort").value;
+  const key = j => sortBy === "posted" ? (j.posted_on || "") : j.first_seen;
   const rows = jobs.filter(j => inView(j, view)
     && (!track || j.track === track)
     && (!firm || j.firm === firm)
     && (!region || j.europe)
     && (!source || (j.kind || "firm") === source)
-    && (!q || `${j.title} ${j.firm} ${j.location}`.toLowerCase().includes(q)));
+    && (!q || `${j.title} ${j.firm} ${j.location}`.toLowerCase().includes(q)))
+    .sort((a, b) => (key(b) || "0").localeCompare(key(a) || "0"));
 
   const list = document.getElementById("list");
   if (!rows.length) {
@@ -181,7 +198,7 @@ function render() {
   }
   let html = "", current = "";
   for (const j of rows) {
-    const b = band(j.first_seen);
+    const b = band(key(j));
     if (b !== current) { html += `${current ? "</ol>" : ""}<h2>${b}</h2><ol>`; current = b; }
     const m = marks[j.id];
     const trackCls = j.track === "Asset management" ? "track-am" : "";
@@ -206,7 +223,7 @@ function render() {
       <div>
         <a class="title" href="${esc(j.url)}" target="_blank" rel="noopener">${esc(j.title)}</a>
         <div class="meta"><span class="firm">${esc(j.firm)}</span>${j.kind === "recruiter" ? " (recruiter)" : j.kind === "linkedin" ? ", via LinkedIn" : ""}${j.location ? ", " + esc(j.location) : ""}
-          <br><span class="${trackCls}">${esc(j.track)}</span>${j.europe ? ", European scope" : ""}, first seen ${esc(j.first_seen)}${notes.length ? ", " + notes.join(", ") : ""}${j.active ? "" : `, <span class="closed">closed ${esc(j.closed || "")}</span>`}</div>
+          <br><span class="${trackCls}">${esc(j.track)}</span>${j.europe ? ", European scope" : ""}, ${postedText(j)}, first seen here ${fmt(j.first_seen)}${notes.length ? ", " + notes.join(", ") : ""}${j.active ? "" : `, <span class="closed">closed ${esc(j.closed || "")}</span>`}</div>
         <div class="extra">${contactLine}</div>${same}
       </div>
       <div class="actions">
@@ -229,7 +246,7 @@ document.getElementById("list").addEventListener("click", e => {
   if (marks[id] === m) delete marks[id]; else marks[id] = m;
   persist(); render();
 });
-["q", "track", "firm", "source", "region"].forEach(id => document.getElementById(id).addEventListener("input", render));
+["q", "sort", "track", "firm", "source", "region"].forEach(id => document.getElementById(id).addEventListener("input", render));
 
 Promise.all([
   fetch("jobs.json", { cache: "no-store" }).then(r => r.json()),
@@ -245,7 +262,7 @@ Promise.all([
     "<tr><th>Firm</th><th>Source</th><th>Listed</th><th>Kept</th><th>Problem</th></tr>" +
     status.map(s => `<tr><td><a href="${esc(s.careers_url)}" target="_blank" rel="noopener">${esc(s.firm)}</a></td>
       <td>${esc(s.adapter || "")}</td><td>${s.fetched}</td><td>${s.matched}</td>
-      <td class="err">${esc(s.error || (s.fetched === 0 ? "No postings found on the page" : ""))}</td></tr>`).join("");
+      <td class="err">${esc(s.error || (s.fetched === 0 ? (s.adapter === "gmail" ? "No LinkedIn alert emails in the last few days" : "No postings found on the page") : ""))}</td></tr>`).join("");
   render();
 }).catch(() => {
   document.getElementById("updated").textContent = "";
