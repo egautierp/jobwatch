@@ -230,7 +230,7 @@ def add_contacts(history, limit, today):
 
 def add_linkedin(tracker, status, flt, li_cfg, user, pw, known):
     try:
-        jobs, err = linkedin.fetch(user, pw, li_cfg.get("days", 3)), None
+        jobs, err = linkedin.fetch(user, pw, li_cfg.get("days", 7)), None
     except Exception as e:
         jobs, err = [], f"{type(e).__name__}: {e}"[:300]
     kept = 0

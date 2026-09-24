@@ -156,7 +156,7 @@ filters:
 # already choose the roles; exclusions and locations still are.
 linkedin_alerts:
   enabled: true
-  days: 3
+  days: 7
 
 # Contact details. For each new role, the advert is opened once to look for a
 # named contact, email and phone. Recruiter adverts usually have one; firm
