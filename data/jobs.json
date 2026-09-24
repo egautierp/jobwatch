@@ -6,6 +6,7 @@
    "phone": "+44 (0)20 7451 4000"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Blackstone",
   "first_seen": "2026-09-24",
@@ -15,11 +16,36 @@
   "links": [],
   "location": "3 Locations",
   "posted": "",
+  "posted_approx": false,
+  "posted_on": "2026-08-18",
   "postings": 1,
   "source": "Blackstone",
   "title": "Legal & Compliance - Real Estate, VP",
   "track": "Other",
   "url": "https://blackstone.wd1.myworkdayjobs.com/en-US/Blackstone_Careers/job/New-York/Legal---Compliance---Real-Estate--VP_44853-2"
+ },
+ "1a4aa50de221": {
+  "active": true,
+  "closed": null,
+  "contact": {
+   "email": ""
+  },
+  "department": "",
+  "details_checked": true,
+  "europe": false,
+  "firm": "PGIM",
+  "first_seen": "2026-09-24",
+  "id": "1a4aa50de221",
+  "kind": "firm",
+  "last_seen": "2026-09-24",
+  "links": [],
+  "location": "",
+  "posted": "",
+  "postings": 1,
+  "source": "PGIM",
+  "title": "PGIM appoints David Fassbender as head of Asia Pacific for real estate",
+  "track": "Other",
+  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/press-releases/pgim-appoints-david-fassbender-as-head-of-asia-pacific-for-real-estate"
  },
  "1b360bf75988": {
   "active": true,
@@ -29,6 +55,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -51,6 +78,7 @@
    "phone": "+44 (0)20 7451 4000"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Blackstone",
   "first_seen": "2026-09-24",
@@ -60,6 +88,8 @@
   "links": [],
   "location": "London",
   "posted": "",
+  "posted_approx": false,
+  "posted_on": "2026-06-11",
   "postings": 1,
   "source": "Blackstone",
   "title": "Transaction Lawyer, Real Estate Debt Strategies, Senior Vice President",
@@ -74,6 +104,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -89,6 +120,29 @@
   "track": "Other",
   "url": "https://www.madisonberkeley.com/jobs/?search=&category=real-estate-advisory"
  },
+ "3f4091037fd4": {
+  "active": true,
+  "closed": null,
+  "contact": {
+   "email": ""
+  },
+  "department": "",
+  "details_checked": true,
+  "europe": true,
+  "firm": "PGIM",
+  "first_seen": "2026-09-24",
+  "id": "3f4091037fd4",
+  "kind": "firm",
+  "last_seen": "2026-09-24",
+  "links": [],
+  "location": "",
+  "posted": "",
+  "postings": 1,
+  "source": "PGIM",
+  "title": "PGIM Real Estate appoints head of Core Strategies to drive European growth",
+  "track": "Other",
+  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/press-releases/pgim-real-estate-appoints-head-of-core-strategies-to-drive-european-growth"
+ },
  "443f47608069": {
   "active": true,
   "closed": null,
@@ -96,6 +150,7 @@
    "email": "emea-talentacquisition@invesco.com"
   },
   "department": "",
+  "details_checked": true,
   "europe": true,
   "firm": "Invesco",
   "first_seen": "2026-09-24",
@@ -105,6 +160,8 @@
   "links": [],
   "location": "London, London",
   "posted": "Posted 22 Days Ago",
+  "posted_approx": false,
+  "posted_on": "2026-09-02",
   "postings": 1,
   "source": "Invesco",
   "title": "Senior Associate, Investments UK, Ireland & Nordics (Real Estate)",
@@ -119,6 +176,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -139,6 +197,7 @@
   "closed": null,
   "contact": {},
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Heitman",
   "first_seen": "2026-09-24",
@@ -154,6 +213,29 @@
   "track": "Asset management",
   "url": "https://www.heitman.com/jobs/oRwIAfwp/"
  },
+ "5a0277bb4c91": {
+  "active": true,
+  "closed": null,
+  "contact": {
+   "email": ""
+  },
+  "department": "",
+  "details_checked": true,
+  "europe": false,
+  "firm": "PGIM",
+  "first_seen": "2026-09-24",
+  "id": "5a0277bb4c91",
+  "kind": "firm",
+  "last_seen": "2026-09-24",
+  "links": [],
+  "location": "",
+  "posted": "",
+  "postings": 1,
+  "source": "PGIM",
+  "title": "Su Lin Wee: Executive Director, Head of Asset Management, Southeast Asia, China & Hong Kong, PGIM Real Estate",
+  "track": "Asset management",
+  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/in-the-news/su-lin-wee-executive-director-head-asset-management-southeast-asia-china-hong-kong-pgim-real-estate"
+ },
  "5d1febca5498": {
   "active": true,
   "closed": null,
@@ -162,6 +244,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -185,6 +268,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -207,6 +291,7 @@
    "email": "emea-talentacquisition@invesco.com"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Invesco",
   "first_seen": "2026-09-24",
@@ -216,6 +301,8 @@
   "links": [],
   "location": "London, London",
   "posted": "Posted 30+ Days Ago",
+  "posted_approx": false,
+  "posted_on": "2026-06-18",
   "postings": 1,
   "source": "Invesco",
   "title": "Director of Loan Closing and Execution (Real Estate)",
@@ -227,6 +314,7 @@
   "closed": null,
   "contact": {},
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Heitman",
   "first_seen": "2026-09-24",
@@ -250,6 +338,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -270,6 +359,7 @@
   "closed": null,
   "contact": {},
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Heitman",
   "first_seen": "2026-09-24",
@@ -292,6 +382,7 @@
    "email": "emea-talentacquisition@invesco.com"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Invesco",
   "first_seen": "2026-09-24",
@@ -301,6 +392,8 @@
   "links": [],
   "location": "2 Locations",
   "posted": "Posted 8 Days Ago",
+  "posted_approx": false,
+  "posted_on": "2026-09-16",
   "postings": 1,
   "source": "Invesco",
   "title": "Senior Associate, Fund Analysis (Real Estate)",
@@ -312,6 +405,7 @@
   "closed": null,
   "contact": {},
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Heitman",
   "first_seen": "2026-09-24",
@@ -334,6 +428,7 @@
    "email": "careers@mandg.com"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "M&G",
   "first_seen": "2026-09-24",
@@ -343,6 +438,8 @@
   "links": [],
   "location": "London",
   "posted": "Posted 7 Days Ago",
+  "posted_approx": false,
+  "posted_on": "2026-09-17",
   "postings": 1,
   "source": "M&G",
   "title": "Real Estate Team PA - 12 month FTC",
@@ -357,6 +454,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -384,6 +482,7 @@
    "email": "careers@mandg.com"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "M&G",
   "first_seen": "2026-09-24",
@@ -393,11 +492,36 @@
   "links": [],
   "location": "London",
   "posted": "Posted 8 Days Ago",
+  "posted_approx": false,
+  "posted_on": "2026-09-16",
   "postings": 1,
   "source": "M&G",
   "title": "Real Estate Junior Associate/Analyst",
   "track": "Other",
   "url": "https://mgpru.wd3.myworkdayjobs.com/en-US/mandgprudential/job/London/Junior-Associate-Analyst_R20184"
+ },
+ "c17fec4b16cf": {
+  "active": true,
+  "closed": null,
+  "contact": {
+   "email": ""
+  },
+  "department": "",
+  "details_checked": true,
+  "europe": false,
+  "firm": "PGIM",
+  "first_seen": "2026-09-24",
+  "id": "c17fec4b16cf",
+  "kind": "firm",
+  "last_seen": "2026-09-24",
+  "links": [],
+  "location": "",
+  "posted": "",
+  "postings": 1,
+  "source": "PGIM",
+  "title": "PGIM Real Estate appoints David Fassbender as deputy head of Asia Pacific",
+  "track": "Other",
+  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/press-releases/pgim-real-estate-appoints-david-fassbender-deputy-head-asia-pacific"
  },
  "d1336526ea3d": {
   "active": true,
@@ -407,6 +531,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -427,6 +552,7 @@
   "closed": null,
   "contact": {},
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Heitman",
   "first_seen": "2026-09-24",
@@ -447,6 +573,7 @@
   "closed": null,
   "contact": {},
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Heitman",
   "first_seen": "2026-09-24",
@@ -469,6 +596,7 @@
    "email": "careers@mandg.com"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "M&G",
   "first_seen": "2026-09-24",
@@ -478,6 +606,8 @@
   "links": [],
   "location": "London",
   "posted": "Posted 14 Days Ago",
+  "posted_approx": false,
+  "posted_on": "2026-09-10",
   "postings": 1,
   "source": "M&G",
   "title": "Company Secretary Senior Administrator - Real Estate - 3 Month Secondment/FTC",
@@ -489,6 +619,7 @@
   "closed": null,
   "contact": {},
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Heitman",
   "first_seen": "2026-09-24",
@@ -512,6 +643,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -527,6 +659,52 @@
   "track": "Asset management",
   "url": "https://www.madisonberkeley.com/jobs/industrial-asset-manager-top-tier-repe-firm/"
  },
+ "f2cc9a78ce16": {
+  "active": true,
+  "closed": null,
+  "contact": {
+   "email": ""
+  },
+  "department": "",
+  "details_checked": true,
+  "europe": false,
+  "firm": "PGIM",
+  "first_seen": "2026-09-24",
+  "id": "f2cc9a78ce16",
+  "kind": "firm",
+  "last_seen": "2026-09-24",
+  "links": [],
+  "location": "",
+  "posted": "",
+  "postings": 1,
+  "source": "PGIM",
+  "title": "The Glass Hammer: Alison Taylor, Investment Vice President, PGIM Real Estate",
+  "track": "Investments",
+  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/in-the-news/glass-hammer-alison-taylor-investment-vice-president-pgim-real-estate"
+ },
+ "f42376b45c65": {
+  "active": true,
+  "closed": null,
+  "contact": {
+   "email": ""
+  },
+  "department": "",
+  "details_checked": true,
+  "europe": true,
+  "firm": "PGIM",
+  "first_seen": "2026-09-24",
+  "id": "f42376b45c65",
+  "kind": "firm",
+  "last_seen": "2026-09-24",
+  "links": [],
+  "location": "",
+  "posted": "",
+  "postings": 1,
+  "source": "PGIM",
+  "title": "PGIM appoints head of France for real estate business",
+  "track": "Other",
+  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/press-releases/pgim-appoints-head-of-france-for-real-estate-business"
+ },
  "f77333953de9": {
   "active": true,
   "closed": null,
@@ -535,6 +713,7 @@
    "phone": "07384 253 369"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Madison Berkeley",
   "first_seen": "2026-09-24",
@@ -557,6 +736,7 @@
    "email": "askhr@greystar.com"
   },
   "department": "",
+  "details_checked": true,
   "europe": false,
   "firm": "Greystar",
   "first_seen": "2026-09-24",
@@ -566,6 +746,8 @@
   "links": [],
   "location": "2 Locations",
   "posted": "",
+  "posted_approx": false,
+  "posted_on": "2026-08-03",
   "postings": 1,
   "source": "Greystar",
   "title": "Regional Property Manager - San Francisco Bay Area",

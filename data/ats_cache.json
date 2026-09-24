@@ -8,11 +8,20 @@
    "tenant": "invesco"
   }
  },
+ "https://careers.savillsim.com": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "teamtailor",
+   "slug": "app"
+  },
+  "url": "https://careers.savillsim.com/"
+ },
  "https://welltower.com/careers/": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://welltower.com/careers/"
  },
  "https://www.aberdeenplc.com/en-gb/careers": {
   "checked": "2026-09-24",
@@ -31,6 +40,30 @@
    "site": "Apollo_Careers",
    "tenant": "athene"
   }
+ },
+ "https://www.aresmgmt.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.aresmgmt.com/careers"
+ },
+ "https://www.avivainvestors.com/en-gb/about/careers/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "workday",
+   "dc": "wd1",
+   "site": "Aviva_Investors_External",
+   "tenant": "aviva"
+  },
+  "url": "https://careers.avivainvestors.com/"
+ },
+ "https://www.barings.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.barings.com/careers"
  },
  "https://www.blackstone.com/careers/": {
   "checked": "2026-09-24",
@@ -51,25 +84,29 @@
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.brookfield.com/careers/life-at-brookfield"
  },
  "https://www.cainint.com/career-oportunities": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://cainint.com/career-oportunities/"
  },
  "https://www.catella.com/en/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.catella.com/en/careers"
  },
  "https://www.cbreim.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.cbreim.com/careers"
  },
  "https://www.clarionpartners.com/careers": {
   "checked": "2026-09-24",
@@ -84,7 +121,8 @@
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.cobaltrecruitment.co.uk/cm/jobs"
  },
  "https://www.curlewcapital.co.uk": {
   "checked": "2026-09-24",
@@ -92,17 +130,40 @@
    "ats": "generic"
   }
  },
+ "https://www.curlewcapital.co.uk/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.curlewcapital.co.uk/contact"
+ },
  "https://www.edmond-de-rothschild.com/en/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.edmond-de-rothschild.com/en/careers"
+ },
+ "https://www.europacapital.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://europacapital.com/company/culture-careers/"
  },
  "https://www.getliving.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://corporate.getliving.com/careers/"
+ },
+ "https://www.graingerplc.co.uk/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://corporate.graingerplc.co.uk/people-and-careers"
  },
  "https://www.greystar.com/careers": {
   "checked": "2026-09-24",
@@ -112,6 +173,13 @@
    "site": "External",
    "tenant": "greystar"
   }
+ },
+ "https://www.gsagroup.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.gsagroup.com/our-people/careers/"
  },
  "https://www.harrisonst.com/careers": {
   "checked": "2026-09-24",
@@ -125,37 +193,57 @@
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.heitman.com/careers/"
+ },
+ "https://www.hines.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.hines.com/careers"
  },
  "https://www.kennedywilson.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.kennedywilson.com/careers"
  },
  "https://www.kkr.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.kkr.com/careers"
+ },
+ "https://www.lasalle.com/careers/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.lasalle.com/careers/"
  },
  "https://www.macdonaldandcompany.com/jobs": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.macdonaldandcompany.com/.well-known/sgcaptcha/?r=%2Fjobs&y=ipc:4.236.164.161:1790259933.210"
  },
  "https://www.madisonberkeley.com/jobs": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.madisonberkeley.com/.well-known/sgcaptcha/?r=%2Fjobs&y=ipc:4.236.164.161:1790259929.754"
  },
  "https://www.man.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.man.com/careers"
  },
  "https://www.mandg.com/careers": {
   "checked": "2026-09-24",
@@ -170,42 +258,91 @@
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.metlifecareers.com/en_US/ml"
  },
  "https://www.modaliving.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://modagroup.com/careers"
  },
  "https://www.nuveen.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.nuveen.com/global/404?item=%2Fcareers&user=extranet%5CAnonymous&site=website&type=us"
+ },
+ "https://www.patrizia.ag/en/careers/": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.patrizia.ag/en/careers"
+ },
+ "https://www.patroncapital.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://patroncapital.com/privacy-notice-recruitment/"
  },
  "https://www.pgim.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.pgim.com/us/en/institutional/about/careers"
  },
  "https://www.quintain.co.uk/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://careers.quintain.co.uk"
+ },
+ "https://www.roundhillcapital.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://roundhillcapital.com/careers"
+ },
+ "https://www.scape.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.scape.com/company/careers/"
  },
  "https://www.schroders.com/en/global/individual/careers/": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.schroders.com/en/global/individual/careers/"
+ },
+ "https://www.selbyjennings.com/en-us/jobs/s-investment-management/lt-london": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://www.selbyjennings.com/en-us/jobs/s-investment-management/lt-london"
  },
  "https://www.starwoodcapital.com/careers": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
-  }
+  },
+  "url": "https://www.starwoodcapital.com/careers/"
+ },
+ "https://www.tristancap.com/careers": {
+  "checked": "2026-09-24",
+  "config": {
+   "ats": "generic"
+  },
+  "url": "https://tristancap.com/careers/"
  }
 }
