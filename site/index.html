@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Open roles</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5F7F8; --surface: #FFFFFF; --ink: #16212B; --muted: #5E6B78;
+  --rule: #D9DFE4; --link: #1D5C74; --new: #2E7D4F; --applied: #9A6B12;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Public Sans", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12181E; --surface: #19212A; --ink: #E6EBEF; --muted: #98A4AF;
+    --rule: #2A343F; --link: #7FB8CC; --new: #6BC08E; --applied: #D9A845;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12181E; --surface: #19212A; --ink: #E6EBEF; --muted: #98A4AF;
+  --rule: #2A343F; --link: #7FB8CC; --new: #6BC08E; --applied: #D9A845;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 15px/1.5 var(--sans); }
+main { max-width: 920px; margin: 0 auto; padding: 32px 20px 64px; }
+header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; }
+h1 { font: 600 34px/1.1 var(--serif); margin: 0; letter-spacing: -0.01em; }
+.updated { color: var(--muted); font-size: 13px; }
+
+.views { display: flex; gap: 4px; margin: 28px 0 14px; overflow-x: auto; border-bottom: 1px solid var(--rule); }
+.views button { background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  padding: 8px 12px 10px; font: 500 14px var(--sans); color: var(--muted); cursor: pointer; white-space: nowrap; }
+.views button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.views .n { font-weight: 400; margin-left: 4px; }
+
+.filters { display: grid; grid-template-columns: 1fr repeat(4, 150px); gap: 10px; margin-bottom: 8px; }
+.filters input, .filters select { width: 100%; font: 400 14px var(--sans); color: var(--ink);
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 9px 10px; }
+
+h2 { font: 600 13px/1 var(--sans); color: var(--muted); margin: 30px 0 4px; }
+ol { list-style: none; margin: 0; padding: 0; }
+li.job { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.title { font: 500 18px/1.3 var(--serif); color: var(--ink); text-decoration: none; }
+.title:hover { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+.meta { color: var(--muted); font-size: 13.5px; }
+.meta .firm { color: var(--ink); font-weight: 500; }
+.track-am { color: var(--new); }
+.closed, .warn { color: var(--applied); }
+.extra { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.extra a, .meta a { color: var(--link); }
+.actions { display: flex; gap: 6px; align-items: start; }
+.actions button { font: 500 13px var(--sans); color: var(--muted); background: none; cursor: pointer;
+  border: 1px solid var(--rule); border-radius: 6px; padding: 5px 10px; }
+.actions button:hover { color: var(--ink); border-color: var(--muted); }
+.actions button.on-saved { color: var(--link); border-color: var(--link); }
+.actions button.on-applied { color: var(--applied); border-color: var(--applied); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+.empty { color: var(--muted); padding: 40px 0; }
+details { margin-top: 48px; border-top: 1px solid var(--rule); padding-top: 16px; }
+summary { cursor: pointer; font-weight: 500; }
+.sources-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 12px; }
+th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; }
+td.err { color: var(--applied); }
+td a { color: var(--link); }
+
+@media (max-width: 640px) {
+  main { padding-top: 20px; }
+  h1 { font-size: 28px; }
+  .filters { grid-template-columns: 1fr 1fr; }
+  .filters input { grid-column: 1 / -1; }
+  li.job { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Open roles</h1>
+    <span class="updated" id="updated">Loading</span>
+  </header>
+
+  <nav class="views" id="views" aria-label="Views"></nav>
+
+  <div class="filters">
+    <input id="q" type="search" placeholder="Search title, firm or location" aria-label="Search">
+    <select id="track" aria-label="Track">
+      <option value="">All tracks</option>
+      <option>Asset management</option>
+      <option>Investments</option>
+      <option>Other</option>
+    </select>
+    <select id="firm" aria-label="Firm"><option value="">All firms</option></select>
+    <select id="source" aria-label="Source">
+      <option value="">All sources</option>
+      <option value="firm">Firm websites</option>
+      <option value="recruiter">Recruiters</option>
+      <option value="linkedin">LinkedIn alerts</option>
+    </select>
+    <select id="region" aria-label="Scope">
+      <option value="">Any scope</option>
+      <option value="europe">European scope</option>
+    </select>
+  </div>
+
+  <div id="list"></div>
+
+  <details>
+    <summary>Sources checked on the last run</summary>
+    <div class="sources-wrap"><table id="sources"></table></div>
+  </details>
+</main>
+
+<script>
+const KEY = "rejobwatch-status";
+const VIEWS = [
+  ["new", "New this week"], ["open", "All open"], ["saved", "Saved"],
+  ["applied", "Applied"], ["hidden", "Hidden"]
+];
+let jobs = [], marks = {}, view = "new";
+
+try { marks = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { marks = {}; }
+function persist() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch (e) {} }
+
+const today = new Date(); today.setHours(0, 0, 0, 0);
+function daysAgo(iso) { return Math.round((today - new Date(iso + "T00:00:00")) / 86400000); }
+function band(iso) {
+  const d = daysAgo(iso);
+  if (d <= 0) return "Today";
+  if (d === 1) return "Yesterday";
+  if (d < 7) return "Earlier this week";
+  if (d < 31) return "This month";
+  return "Older";
+}
+function inView(j, v) {
+  const m = marks[j.id];
+  if (v === "new") return j.active && m !== "hidden" && daysAgo(j.first_seen) < 7;
+  if (v === "open") return j.active && m !== "hidden";
+  return m === v;
+}
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function renderViews() {
+  document.getElementById("views").innerHTML = VIEWS.map(([k, label]) =>
+    `<button data-v="${k}" aria-pressed="${k === view}">${label}<span class="n">${jobs.filter(j => inView(j, k)).length}</span></button>`
+  ).join("");
+}
+
+function render() {
+  renderViews();
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const track = document.getElementById("track").value;
+  const firm = document.getElementById("firm").value;
+  const region = document.getElementById("region").value;
+  const source = document.getElementById("source").value;
+  const rows = jobs.filter(j => inView(j, view)
+    && (!track || j.track === track)
+    && (!firm || j.firm === firm)
+    && (!region || j.europe)
+    && (!source || (j.kind || "firm") === source)
+    && (!q || `${j.title} ${j.firm} ${j.location}`.toLowerCase().includes(q)));
+
+  const list = document.getElementById("list");
+  if (!rows.length) {
+    const hint = { new: "Nothing new in the last seven days. Check All open for earlier roles.",
+      saved: "Save a role to keep it here.", applied: "Mark a role as applied to track it here.",
+      hidden: "Roles you hide appear here.", open: "No open roles match these filters." }[view];
+    list.innerHTML = `<p class="empty">${hint}</p>`;
+    return;
+  }
+  let html = "", current = "";
+  for (const j of rows) {
+    const b = band(j.first_seen);
+    if (b !== current) { html += `${current ? "</ol>" : ""}<h2>${b}</h2><ol>`; current = b; }
+    const m = marks[j.id];
+    const trackCls = j.track === "Asset management" ? "track-am" : "";
+    const c = j.contact || {};
+    const cparts = [];
+    if (c.name) cparts.push(esc(c.name));
+    if (c.email) cparts.push(`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`);
+    if (c.phone) cparts.push(`<a href="tel:${esc(c.phone.replace(/\s/g, ""))}">${esc(c.phone)}</a>`);
+    const topic = j.track === "Asset management" ? "asset management" : "real estate";
+    const people = "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent(`${j.firm} ${topic}`);
+    let contactLine;
+    if (cparts.length) contactLine = `Contact: ${cparts.join(", ")}`;
+    else if (j.kind === "linkedin") contactLine = `Check Meet the hiring team on the LinkedIn advert, or <a href="${people}" target="_blank" rel="noopener">find people at ${esc(j.firm)}</a>`;
+    else contactLine = `No contact named in the advert. <a href="${people}" target="_blank" rel="noopener">Find people at ${esc(j.firm)} on LinkedIn</a>`;
+    const also = (j.links || []).map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.source === "LinkedIn alerts" ? "LinkedIn" : l.source)}</a>`);
+    const notes = [];
+    if (j.postings > 1) notes.push(`posted for ${j.postings} locations`);
+    if (j.reposted) notes.push(`reposted ${esc(j.reposted)}`);
+    if (also.length) notes.push(`also listed on ${also.join(", ")}`);
+    const same = j.maybe_same ? `<div class="extra warn">Possibly the same role as ${esc(j.maybe_same.title)} at ${esc(j.maybe_same.firm)}. Check before applying twice.</div>` : "";
+    html += `<li class="job">
+      <div>
+        <a class="title" href="${esc(j.url)}" target="_blank" rel="noopener">${esc(j.title)}</a>
+        <div class="meta"><span class="firm">${esc(j.firm)}</span>${j.kind === "recruiter" ? " (recruiter)" : j.kind === "linkedin" ? ", via LinkedIn" : ""}${j.location ? ", " + esc(j.location) : ""}
+          <br><span class="${trackCls}">${esc(j.track)}</span>${j.europe ? ", European scope" : ""}, first seen ${esc(j.first_seen)}${notes.length ? ", " + notes.join(", ") : ""}${j.active ? "" : `, <span class="closed">closed ${esc(j.closed || "")}</span>`}</div>
+        <div class="extra">${contactLine}</div>${same}
+      </div>
+      <div class="actions">
+        <button data-id="${j.id}" data-m="saved" class="${m === "saved" ? "on-saved" : ""}">${m === "saved" ? "Saved" : "Save"}</button>
+        <button data-id="${j.id}" data-m="applied" class="${m === "applied" ? "on-applied" : ""}">${m === "applied" ? "Applied" : "Mark applied"}</button>
+        <button data-id="${j.id}" data-m="hidden">${m === "hidden" ? "Unhide" : "Hide"}</button>
+      </div>
+    </li>`;
+  }
+  list.innerHTML = html + "</ol>";
+}
+
+document.getElementById("views").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  view = b.dataset.v; render();
+});
+document.getElementById("list").addEventListener("click", e => {
+  const b = e.target.closest("button[data-id]"); if (!b) return;
+  const { id, m } = b.dataset;
+  if (marks[id] === m) delete marks[id]; else marks[id] = m;
+  persist(); render();
+});
+["q", "track", "firm", "source", "region"].forEach(id => document.getElementById(id).addEventListener("input", render));
+
+Promise.all([
+  fetch("jobs.json", { cache: "no-store" }).then(r => r.json()),
+  fetch("status.json", { cache: "no-store" }).then(r => r.json()).catch(() => [])
+]).then(([data, status]) => {
+  jobs = data.jobs || [];
+  const when = new Date(data.updated.replace("Z", ":00Z"));
+  document.getElementById("updated").textContent =
+    `Updated ${when.toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}`;
+  const firms = [...new Set(jobs.map(j => j.firm))].sort();
+  document.getElementById("firm").innerHTML += firms.map(f => `<option>${esc(f)}</option>`).join("");
+  document.getElementById("sources").innerHTML =
+    "<tr><th>Firm</th><th>Source</th><th>Listed</th><th>Kept</th><th>Problem</th></tr>" +
+    status.map(s => `<tr><td><a href="${esc(s.careers_url)}" target="_blank" rel="noopener">${esc(s.firm)}</a></td>
+      <td>${esc(s.adapter || "")}</td><td>${s.fetched}</td><td>${s.matched}</td>
+      <td class="err">${esc(s.error || (s.fetched === 0 ? "No postings found on the page" : ""))}</td></tr>`).join("");
+  render();
+}).catch(() => {
+  document.getElementById("updated").textContent = "";
+  document.getElementById("list").innerHTML = '<p class="empty">The job list has not been built yet. Run the daily workflow once from the Actions tab.</p>';
+});
+</script>
+</body>
+</html>

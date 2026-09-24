@@ -1,0 +1,202 @@
+# Which roles to keep. Matching is case-insensitive and matches at the start of
+# a word, so "acquisition" also catches "Acquisitions". Words of 3 letters or
+# fewer must match exactly (so "btr" will not match inside other words).
+filters:
+  role_keywords:
+    - asset manag
+    - portfolio manag
+    - investment
+    - acquisition
+    - transaction
+    - capital markets
+    - fund manag
+    - underwrit
+    - origination
+    - investor relations
+    - real estate
+    - residential
+    - living
+    - btr
+    - pbsa
+    - sfr
+    - senior housing
+    - senior living
+    - property
+  exclude_keywords:
+    - intern
+    - internship
+    - summer
+    - graduate
+    - apprentice
+    - receptionist
+    - concierge
+    - leasing consultant
+    - leasing agent
+    - lettings
+    - maintenance
+    - technician
+    - porter
+    - cleaner
+    - housekeep
+    - community
+    - resident
+    - front of house
+    - chef
+    - carer
+    - care assistant
+    - nurse
+    - driver
+    - security
+    - software
+    - engineer
+    - accountant
+    - payroll
+    - tax
+    - paralegal
+    - recruit
+    - facilities
+  # Only for firms marked broad: true (multi-asset managers with thousands of
+  # jobs). The title or department must also contain one of these.
+  sector_keywords:
+    - real estate
+    - property
+    - residential
+    - living
+    - housing
+    - brep
+    - bxre
+    - re
+  # A role with a listed location must match one of these. Roles without a
+  # location are always kept.
+  locations:
+    - london
+    - remote
+  # Roles whose title or department mentions any of these get a Europe tag on
+  # the page. Set europe_only to true to keep only those roles.
+  europe_only: false
+  europe_keywords:
+    - europe
+    - UK
+    - emea
+    - continental
+    - cross-border
+    - international
+    - benelux
+    - dach
+    - nordic
+    - iberia
+    - germany
+    - german
+    - france
+    - french
+    - spain
+    - spanish
+    - italy
+    - italian
+    - netherlands
+    - dutch
+    - sweden
+    - swedish
+    - denmark
+    - danish
+    - finland
+    - norway
+    - poland
+    - ireland
+  tracks:
+    asset_management: [asset manag, portfolio manag, asset manager]
+    investments: [investment, acquisition, transaction, capital markets, underwrit, origination, fund manag]
+
+# LinkedIn job alerts. Set up alerts on LinkedIn (Jobs, search, then turn on
+# "Set alert") and have them emailed to the Gmail account in SMTP_USER. Each
+# run reads the last few days of alert emails. Uses the same app password as
+# the daily email. Role keywords are not applied, since your alert searches
+# already choose the roles; exclusions and locations still are.
+linkedin_alerts:
+  enabled: true
+  days: 3
+
+# Contact details. For each new role, the advert is opened once to look for a
+# named contact, email and phone. Recruiter adverts usually have one; firm
+# adverts rarely do.
+contacts:
+  enabled: true
+  max_per_run: 80
+
+# Recruiter job pages. Adverts usually hide the client's name, so these show
+# on the page marked as recruiter roles. Same options as firms below.
+recruiters:
+  - {name: Madison Berkeley, careers_url: "https://www.madisonberkeley.com/jobs"}
+  - {name: Macdonald & Company, careers_url: "https://www.macdonaldandcompany.com/jobs"}
+  - {name: Cobalt Recruitment, careers_url: "https://www.cobaltrecruitment.co.uk/jobs", broad: true}
+  - {name: Selby Jennings, careers_url: "https://www.selbyjennings.com/en-us/jobs/s-investment-management/lt-london", broad: true}
+
+# Each firm needs a name and careers_url. Optional:
+#   ats_url:  a direct link to the firm's Workday/Greenhouse/Lever board, if
+#             the careers page hides it. Skips detection.
+#   broad:    true for multi-asset managers, applies sector_keywords.
+#   browser:  true if the careers page only shows jobs after JavaScript runs.
+#   search:   Workday only, a search term to narrow very large job boards.
+firms:
+  # Living sector specialists and operators
+  - {name: Greystar, careers_url: "https://www.greystar.com/careers"}
+  - {name: Grainger, careers_url: "https://www.graingerplc.co.uk/careers"}
+  - {name: Get Living, careers_url: "https://www.getliving.com/careers"}
+  - {name: Quintain, careers_url: "https://www.quintain.co.uk/careers"}
+  - {name: Heitman, careers_url: "https://www.heitman.com/careers"}
+  - {name: Harrison Street, careers_url: "https://www.harrisonst.com/careers"}
+  - {name: Round Hill Capital, careers_url: "https://www.roundhillcapital.com/careers"}
+  - {name: Scape, careers_url: "https://www.scape.com/careers"}
+  - {name: Dorrington, careers_url: "https://www.dorrington.co.uk/careers"}
+  - {name: Welltower, careers_url: "https://welltower.com/careers/"}
+  - {name: Moda Living, careers_url: "https://www.modaliving.com/careers"}
+  - {name: Long Harbour, careers_url: "https://www.longharbour.com/careers"}
+  - {name: Heimstaden, careers_url: "https://heimstaden.com/careers/"}
+  - {name: Patrizia, careers_url: "https://www.patrizia.ag/en/careers/"}
+  - {name: Catella, careers_url: "https://www.catella.com/en/careers"}
+  - {name: Kennedy Wilson, careers_url: "https://www.kennedywilson.com/careers"}
+
+  # Real estate investment managers
+  - {name: Hines, careers_url: "https://www.hines.com/careers"}
+  - {name: LaSalle, careers_url: "https://www.lasalle.com/careers/"}
+  - {name: CBRE Investment Management, careers_url: "https://www.cbreim.com/careers"}
+  - {name: Savills IM, careers_url: "https://www.savillsim.com/careers"}
+  - {name: Starwood Capital, careers_url: "https://www.starwoodcapital.com/careers"}
+  - {name: Tristan Capital Partners, careers_url: "https://www.tristancap.com/careers"}
+  - {name: Clarion Partners, careers_url: "https://www.clarionpartners.com/careers"}
+
+  # Multi-asset managers with real estate platforms
+  - {name: Blackstone, careers_url: "https://www.blackstone.com/careers/", broad: true}
+  - {name: Brookfield, careers_url: "https://www.brookfield.com/careers", broad: true}
+  - {name: KKR, careers_url: "https://www.kkr.com/careers", broad: true}
+  - {name: Apollo, careers_url: "https://www.apollo.com/careers", broad: true}
+  - {name: Ares, careers_url: "https://www.aresmgmt.com/careers", broad: true}
+  - {name: PGIM, careers_url: "https://www.pgim.com/careers", broad: true}
+  - {name: Nuveen, careers_url: "https://www.nuveen.com/careers", broad: true}
+  - {name: DWS, careers_url: "https://careers.dws.com", broad: true}
+  - {name: Invesco, careers_url: "https://careers.invesco.com", broad: true}
+  - {name: Barings, careers_url: "https://www.barings.com/careers", broad: true}
+  - {name: Legal & General, careers_url: "https://www.legalandgeneralgroup.com/careers/", broad: true}
+  - {name: M&G, careers_url: "https://www.mandg.com/careers", broad: true}
+  - {name: Aviva Investors, careers_url: "https://www.avivainvestors.com/en-gb/about/careers/", broad: true}
+  - {name: Schroders Capital, careers_url: "https://www.schroders.com/en/global/individual/careers/", broad: true}
+  - {name: Man Group, careers_url: "https://www.man.com/careers", broad: true}
+
+  # From the London residential investment managers list (Sep 2026).
+  # Smaller firms often have no careers page and hire through recruiters or
+  # LinkedIn, so "0 listed" in the Sources table is normal for them.
+  - {name: Greykite, careers_url: "https://www.greykite.com/careers"}
+  - {name: Heim Global Investor, careers_url: "https://www.heimgi.com/careers"}
+  - {name: Amro Partners, careers_url: "https://www.amropartners.com/careers"}
+  - {name: Curlew Capital, careers_url: "https://www.curlewcapital.co.uk"}
+  - {name: LRC Group, careers_url: "https://lrceurope.com/careers"}
+  - {name: GSA, careers_url: "https://www.gsagroup.com/careers"}
+  - {name: Pears Global Real Estate, careers_url: "https://www.pearsglobal.com"}
+  - {name: Blue Noble, careers_url: "https://www.bluenoble.co.uk"}
+  - {name: Cain International, careers_url: "https://www.cainint.com/career-oportunities"}
+  - {name: Patron Capital, careers_url: "https://www.patroncapital.com/careers"}
+  - {name: Europa Capital, careers_url: "https://www.europacapital.com/careers"}
+  - {name: MARK, careers_url: "https://www.thisismark.com/careers"}
+  - {name: Aberdeen, careers_url: "https://www.aberdeenplc.com/en-gb/careers", broad: true}
+  - {name: Edmond de Rothschild REIM, careers_url: "https://www.edmond-de-rothschild.com/en/careers", broad: true}
+  - {name: PineBridge Benson Elliot, careers_url: "https://www.metlife.com/careers/", broad: true}
