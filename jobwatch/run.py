@@ -48,6 +48,25 @@ def compile_words(words):
     return re.compile("|".join(parts), re.I) if parts else None
 
 
+HEADLINE = re.compile(
+    r"\b(appoints?|appointed|appointment|announces?|announced|launch(es|ed)|acquires|acquired|"
+    r"completes?|completed|closes|closed|raises?|raised|wins|won|names|hires|hired|joins|"
+    r"joined|expands?|expanded|sells|sold|secures?|secured|celebrates?|reports|publishes|"
+    r"promotes|promoted|welcomes?|invests|invested|agrees?|agreed|signs|signed|opens|"
+    r"unveils?|partners with|to drive|to lead|to join|interview|podcast|webinar|"
+    r"award|awards|20\d\d)\b|[£€$%?!]", re.I)
+
+
+def looks_like_headline(title):
+    """Job titles never read like news, e.g. "X appoints head of Y" or "Name: role"."""
+    t = title.strip()
+    if HEADLINE.search(t) or t.lower().startswith(("the ", "a ", "an ")):
+        return True
+    if ":" in t and len(t.split()) > 5:
+        return True
+    return False
+
+
 class Filter:
     def __init__(self, cfg):
         self.roles = compile_words(cfg["role_keywords"])
@@ -67,6 +86,8 @@ class Filter:
     def keep(self, job, firm):
         title = job["title"]
         if not title or (self.exclude and self.exclude.search(title)):
+            return False
+        if looks_like_headline(title):
             return False
         if not firm.get("trust_titles") and not self.roles.search(title):
             return False

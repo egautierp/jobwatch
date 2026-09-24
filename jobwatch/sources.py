@@ -292,10 +292,10 @@ def recruitee(c):
 _JOB_PATH = re.compile(
     r"/(jobs?|vacanc\w*|positions?|openings?|opportunit\w*|roles?|requisition)[/-]", re.I)
 _NOT_JOB = re.compile(
-    r"/(news|insights?|press|media|articles?|blogs?|events?|case-stud\w*|research|"
-    r"stories|story|publications?|reports?|podcasts?|videos?|our-people|people|team|"
-    r"leadership|about|investments?|portfolio|funds?|strateg\w*|sustainab\w*|contact)(/|$)",
-    re.I)
+    r"/[^/]*(news|insight|press|media|article|blog|event|case-stud|research|stor(y|ies)|"
+    r"publication|report|podcast|video|webinar|perspective|thought|people|team|"
+    r"leadership|about|sustainab|contact)[^/]*(/|$)|"
+    r"/(investments?|portfolio|funds?|strateg\w*)(/|$)", re.I)
 _ROLE_WORD = re.compile(
     r"\b(analyst|associate|manager|director|vice president|vp|head of|officer|"
     r"executive|partner|principal|intern|controller|specialist|lead)\b", re.I)
@@ -317,7 +317,7 @@ def generic(c, html=None):
             continue
         path = urlparse(href).path
         # A posting has a job title (not a headline) and is not a news or team page.
-        if len(text.split()) > 12 or not _ROLE_WORD.search(text):
+        if len(text.split()) > 10 or not _ROLE_WORD.search(text):
             continue
         if _NOT_JOB.search(path) and not _JOB_PATH.search(path) and not detect(href):
             continue
