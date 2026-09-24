@@ -97,29 +97,6 @@
   "track": "Other",
   "url": "https://www.madisonberkeley.com/jobs/?search=&category=real-estate-advisory"
  },
- "3f4091037fd4": {
-  "active": true,
-  "closed": null,
-  "contact": {
-   "email": ""
-  },
-  "department": "",
-  "details_checked": true,
-  "europe": true,
-  "firm": "PGIM",
-  "first_seen": "2026-09-24",
-  "id": "3f4091037fd4",
-  "kind": "firm",
-  "last_seen": "2026-09-24",
-  "links": [],
-  "location": "",
-  "posted": "",
-  "postings": 1,
-  "source": "PGIM",
-  "title": "PGIM Real Estate appoints head of Core Strategies to drive European growth",
-  "track": "Other",
-  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/press-releases/pgim-real-estate-appoints-head-of-core-strategies-to-drive-european-growth"
- },
  "443f47608069": {
   "active": true,
   "closed": null,
@@ -589,52 +566,6 @@
   "title": "Industrial Asset Manager \u2013 Top Tier REPE Firm",
   "track": "Asset management",
   "url": "https://www.madisonberkeley.com/jobs/industrial-asset-manager-top-tier-repe-firm/"
- },
- "f2cc9a78ce16": {
-  "active": true,
-  "closed": null,
-  "contact": {
-   "email": ""
-  },
-  "department": "",
-  "details_checked": true,
-  "europe": false,
-  "firm": "PGIM",
-  "first_seen": "2026-09-24",
-  "id": "f2cc9a78ce16",
-  "kind": "firm",
-  "last_seen": "2026-09-24",
-  "links": [],
-  "location": "",
-  "posted": "",
-  "postings": 1,
-  "source": "PGIM",
-  "title": "The Glass Hammer: Alison Taylor, Investment Vice President, PGIM Real Estate",
-  "track": "Investments",
-  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/in-the-news/glass-hammer-alison-taylor-investment-vice-president-pgim-real-estate"
- },
- "f42376b45c65": {
-  "active": true,
-  "closed": null,
-  "contact": {
-   "email": ""
-  },
-  "department": "",
-  "details_checked": true,
-  "europe": true,
-  "firm": "PGIM",
-  "first_seen": "2026-09-24",
-  "id": "f42376b45c65",
-  "kind": "firm",
-  "last_seen": "2026-09-24",
-  "links": [],
-  "location": "",
-  "posted": "",
-  "postings": 1,
-  "source": "PGIM",
-  "title": "PGIM appoints head of France for real estate business",
-  "track": "Other",
-  "url": "https://www.pgim.com/us/en/institutional/about/newsroom/press-releases/pgim-appoints-head-of-france-for-real-estate-business"
  },
  "f77333953de9": {
   "active": true,
