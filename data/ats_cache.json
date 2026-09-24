@@ -46,7 +46,7 @@
   "config": {
    "ats": "generic"
   },
-  "url": "https://www.aresmgmt.com/careers"
+  "url": "https://www.ares.com/"
  },
  "https://www.avivainvestors.com/en-gb/about/careers/": {
   "checked": "2026-09-24",
@@ -63,7 +63,7 @@
   "config": {
    "ats": "generic"
   },
-  "url": "https://www.barings.com/careers"
+  "url": "https://www.barings.com/en-us/guest"
  },
  "https://www.blackstone.com/careers/": {
   "checked": "2026-09-24",
@@ -229,14 +229,14 @@
   "config": {
    "ats": "generic"
   },
-  "url": "https://www.macdonaldandcompany.com/.well-known/sgcaptcha/?r=%2Fjobs%2F&y=ipc:20.51.199.7:1790261660.488"
+  "url": "https://www.macdonaldandcompany.com/jobs/"
  },
  "https://www.madisonberkeley.com/jobs": {
   "checked": "2026-09-24",
   "config": {
    "ats": "generic"
   },
-  "url": "https://www.madisonberkeley.com/.well-known/sgcaptcha/?r=%2Fjobs&y=ipc:20.51.199.7:1790261658.962"
+  "url": "https://www.madisonberkeley.com/jobs/"
  },
  "https://www.man.com/careers": {
   "checked": "2026-09-24",
