@@ -10,7 +10,8 @@ import imaplib
 import re
 from email.header import decode_header
 
-ALERT_SENDER = "jobalerts-noreply@linkedin.com"
+ALERT_SENDERS = ("jobalerts-noreply@linkedin.com", "jobs-noreply@linkedin.com")
+EASY = re.compile(r"\beasy apply\b", re.I)
 JOB_LINK = re.compile(r"linkedin\.com/(?:comm/)?jobs/view/(\d+)", re.I)
 SKIP_LINE = re.compile(
     r"^(view job|apply with|apply|easy apply|actively recruiting|this company is actively hiring|"
@@ -34,6 +35,7 @@ def parse_alert(body):
         m = JOB_LINK.search(line)
         if m:
             info = [x for x in block if not SKIP_LINE.match(x) and "http" not in x]
+            easy = any(EASY.search(x) for x in block)
             if info:
                 # Each card lists title, company and location, then extras.
                 head = (info[:3] + ["", "", ""])[:3]
@@ -41,6 +43,7 @@ def parse_alert(body):
                 jobs.append({
                     "title": title, "company": company, "location": location,
                     "url": f"https://www.linkedin.com/jobs/view/{m.group(1)}/",
+                    "easy_apply": easy,
                 })
             block = []
         elif line and not set(line) <= set("-=_ "):
@@ -65,7 +68,8 @@ def fetch(user, password, days=7):
     box = imaplib.IMAP4_SSL("imap.gmail.com")
     box.login(user, password)
     box.select(_all_mail(box), readonly=True)
-    _, data = box.search(None, f'(FROM "{ALERT_SENDER}" SINCE {since})')
+    a, b = ALERT_SENDERS
+    _, data = box.search(None, f'(OR FROM "{a}" FROM "{b}" SINCE {since})')
     found = {}
     for num in data[0].split():
         _, msg_data = box.fetch(num, "(RFC822)")

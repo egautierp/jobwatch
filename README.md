@@ -6,6 +6,13 @@ save, hide and mark roles as applied. Optionally emails you each day's new roles
 
 ## How it works
 
+This scanner is the collector only. It reads careers pages and LinkedIn alert
+emails, removes duplicates and publishes `docs/jobs.json`. A scheduled Claude
+task reads that file every morning at 07:40, scores each new role and adds it
+to the Role Queue, which is the one place to review, mark and note roles. The
+page in `docs/` just redirects there; the daily digest email is off.
+
+
 Most managers post jobs through a hiring system (Workday, Greenhouse, Lever,
 SmartRecruiters, Workable, Teamtailor, Personio, Recruitee). The scanner finds
 which one sits behind each careers page and reads its job feed directly, which
