@@ -104,6 +104,7 @@ td a { color: var(--link); }
       <option value="">All tracks</option>
       <option>Asset management</option>
       <option>Investments</option>
+      <option>Investor relations</option>
       <option>Other</option>
     </select>
     <select id="firm" aria-label="Firm"><option value="">All firms</option></select>
@@ -207,7 +208,8 @@ function render() {
     if (c.name) cparts.push(esc(c.name));
     if (c.email) cparts.push(`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`);
     if (c.phone) cparts.push(`<a href="tel:${esc(c.phone.replace(/\s/g, ""))}">${esc(c.phone)}</a>`);
-    const topic = j.track === "Asset management" ? "asset management" : "real estate";
+    const topic = j.track === "Asset management" ? "asset management"
+      : j.track === "Investor relations" ? "investor relations" : "real estate";
     const people = "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent(`${j.firm} ${topic}`);
     let contactLine;
     if (cparts.length) contactLine = `Contact: ${cparts.join(", ")}`;

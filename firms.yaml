@@ -2,6 +2,7 @@
 # a word, so "acquisition" also catches "Acquisitions". Words of 3 letters or
 # fewer must match exactly (so "btr" will not match inside other words).
 filters:
+  # A role is kept if its title names one of these functions...
   role_keywords:
     - asset manag
     - portfolio manag
@@ -13,6 +14,22 @@ filters:
     - underwrit
     - origination
     - investor relations
+    - capital raising
+    - capital formation
+    - fundrais
+    - fund raising
+    - client relations
+    - client relationship
+    - client solutions
+    - client coverage
+    - lp relations
+    - investor coverage
+    - investor services
+    - business development
+    - placement
+  # ...or names one of these sectors AND one of the seniority words below, so
+  # "Associate, Real Estate" is kept but "Coordinator (Senior Living)" is not.
+  sector_role_keywords:
     - real estate
     - residential
     - living
@@ -20,8 +37,17 @@ filters:
     - pbsa
     - sfr
     - senior housing
-    - senior living
     - property
+  seniority_keywords:
+    - analyst
+    - associate
+    - manager
+    - director
+    - vice president
+    - vp
+    - head
+    - principal
+    - partner
   exclude_keywords:
     - intern
     - internship
@@ -39,7 +65,9 @@ filters:
     - cleaner
     - housekeep
     - community
-    - resident
+    - resident experience
+    - resident services
+    - resident liaison
     - front of house
     - chef
     - carer
@@ -55,6 +83,19 @@ filters:
     - paralegal
     - recruit
     - facilities
+    - coordinator
+    - assistant
+    - administrator
+    - lifestyle
+    - event
+    - marketing
+    - sales
+    - leasing
+    - property manager
+    - site manager
+    - general manager
+    - building manager
+    - operations manager
   # Roles whose title or location names one of these places are dropped,
   # unless London is also mentioned. Adverts often give no location field, so
   # this catches "Associate, Singapore" and similar.
@@ -148,6 +189,9 @@ filters:
   tracks:
     asset_management: [asset manag, portfolio manag, asset manager]
     investments: [investment, acquisition, transaction, capital markets, underwrit, origination, fund manag]
+    # Investor relations roles often mention marketing or sales, so those two
+    # exclusions (and "event") are ignored for titles matching this list.
+    investor_relations: [investor relations, capital raising, capital formation, fundrais, fund raising, client relations, client relationship, client solutions, client coverage, lp relations, investor coverage, investor services, business development, placement]
 
 # LinkedIn job alerts. Set up alerts on LinkedIn (Jobs, search, then turn on
 # "Set alert") and have them emailed to the Gmail account in SMTP_USER. Each
@@ -181,7 +225,7 @@ recruiters:
 #   search:   Workday only, a search term to narrow very large job boards.
 firms:
   # Living sector specialists and operators
-  - {name: Greystar, careers_url: "https://www.greystar.com/careers"}
+  - {name: Greystar, careers_url: "https://www.greystar.com/careers", search: "London"}
   - {name: Grainger, careers_url: "https://www.graingerplc.co.uk/careers"}
   - {name: Get Living, careers_url: "https://www.getliving.com/careers"}
   - {name: Quintain, careers_url: "https://www.quintain.co.uk/careers"}

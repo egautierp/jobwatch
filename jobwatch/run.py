@@ -67,17 +67,34 @@ def looks_like_headline(title):
     return False
 
 
+# "Cherry Hill, NJ" or "Dallas, TX": a US state code after a comma or dash.
+US_STATE = re.compile(
+    r"[,-]\s*(AL|AK|AZ|AR|CA|CO|CT|DE|DC|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|"
+    r"MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\b")
+
+
 class Filter:
     def __init__(self, cfg):
         self.roles = compile_words(cfg["role_keywords"])
+        self.sector_roles = compile_words(cfg.get("sector_role_keywords") or [])
+        self.seniority = compile_words(cfg.get("seniority_keywords") or [])
         self.exclude = compile_words(cfg["exclude_keywords"])
         self.sector = compile_words(cfg["sector_keywords"])
         self.locations = compile_words(cfg["locations"])
         self.am = compile_words(cfg["tracks"]["asset_management"])
         self.inv = compile_words(cfg["tracks"]["investments"])
+        self.ir = compile_words(cfg["tracks"].get("investor_relations") or [])
+        soft = {"marketing", "sales", "event"}
+        self.exclude_for_ir = compile_words([w for w in cfg["exclude_keywords"] if w not in soft])
         self.europe = compile_words(cfg.get("europe_keywords") or [])
         self.abroad = compile_words(cfg.get("exclude_places") or [])
         self.europe_only = bool(cfg.get("europe_only"))
+
+    def is_role(self, title):
+        if self.roles.search(title):
+            return True
+        return bool(self.sector_roles and self.seniority
+                    and self.sector_roles.search(title) and self.seniority.search(title))
 
     def is_europe(self, job):
         text = f"{job['title']} {job.get('department', '')}"
@@ -85,11 +102,14 @@ class Filter:
 
     def keep(self, job, firm):
         title = job["title"]
-        if not title or (self.exclude and self.exclude.search(title)):
+        if not title:
+            return False
+        exclude = self.exclude_for_ir if (self.ir and self.ir.search(title)) else self.exclude
+        if exclude and exclude.search(title):
             return False
         if looks_like_headline(title):
             return False
-        if not firm.get("trust_titles") and not self.roles.search(title):
+        if not firm.get("trust_titles") and not self.is_role(title):
             return False
         if firm.get("broad"):
             if not self.sector.search(f"{title} {job.get('department', '')}"):
@@ -97,8 +117,9 @@ class Filter:
         if self.europe_only and not self.is_europe(job):
             return False
         where = f"{title} {job.get('location', '')}"
-        if self.abroad and self.abroad.search(where) and not self.locations.search(where):
-            return False
+        if (self.abroad and self.abroad.search(where)) or US_STATE.search(where):
+            if not self.locations.search(where):
+                return False
         loc = job.get("location", "")
         if loc and self.locations and not self.locations.search(loc):
             if not re.match(r"\d+ locations", loc, re.I):
@@ -106,6 +127,8 @@ class Filter:
         return True
 
     def track(self, title):
+        if self.ir and self.ir.search(title):
+            return "Investor relations"
         if self.am.search(title):
             return "Asset management"
         if self.inv.search(title):
@@ -257,9 +280,27 @@ def via(j):
     return ""
 
 
-def send_digest(new_jobs, site_url):
+def plural(n, word):
+    return f"{n} {word}" + ("" if n == 1 else "s")
+
+
+def send_digest(new_jobs, site_url, open_count=0, failed=()):
     user, pw, to = (os.environ.get(k) for k in ("SMTP_USER", "SMTP_PASS", "DIGEST_TO"))
-    if not (user and pw and to and new_jobs):
+    if not (user and pw and to):
+        return
+    if not new_jobs:
+        # Quiet day: a short note so it is clear the scan ran.
+        link = f'<p><a href="{escape(site_url)}">Open the full list</a></p>' if site_url else ""
+        note = (f"<p>{plural(len(failed), 'source')} could not be checked today. "
+                f"See the Sources table at the bottom of the page.</p>") if failed else ""
+        verb = "is" if open_count == 1 else "are"
+        msg = MIMEText(f"<html><body><p>No new roles today. {plural(open_count, 'role')} "
+                       f"{verb} still open.</p>{note}{link}</body></html>", "html")
+        msg["Subject"] = "No new real estate roles today"
+        msg["From"], msg["To"] = user, to
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+            s.login(user, pw)
+            s.send_message(msg)
         return
     rows = []
     for j in sorted(new_jobs, key=lambda j: (j["track"] != "Asset management", j["firm"])):
@@ -277,7 +318,7 @@ def send_digest(new_jobs, site_url):
                     f'{via(j)}{extra}</p>')
     link = f'<p><a href="{escape(site_url)}">Open the full list</a></p>' if site_url else ""
     msg = MIMEText(f"<html><body>{''.join(rows)}{link}</body></html>", "html")
-    msg["Subject"] = f"{len(new_jobs)} new real estate roles"
+    msg["Subject"] = f"{plural(len(new_jobs), 'new real estate role')}"
     msg["From"], msg["To"] = user, to
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
         s.login(user, pw)
@@ -364,6 +405,7 @@ def main():
                if v.get("active") or (v.get("closed") or today) >= cutoff}
     for rec in history.values():
         rec["europe"] = flt.is_europe(rec)
+        rec["track"] = flt.track(rec["title"])
 
     DATA.mkdir(exist_ok=True)
     DOCS.mkdir(exist_ok=True)
@@ -379,9 +421,10 @@ def main():
     (DOCS / ".nojekyll").touch()
 
     failed = [s["firm"] for s in status if s["error"]]
-    print(f"{len(tracker.new)} new, {sum(1 for j in public if j.get('active'))} open, "
+    print(f"{sum(1 for j in tracker.new if j['id'] in history)} new, {sum(1 for j in public if j.get('active'))} open, "
           f"{len(failed)} sources failed: {', '.join(failed) or 'none'}")
-    send_digest(tracker.new, os.environ.get("SITE_URL", ""))
+    send_digest([j for j in tracker.new if j["id"] in history], os.environ.get("SITE_URL", ""),
+                sum(1 for j in public if j.get("active")), failed)
 
 
 if __name__ == "__main__":
