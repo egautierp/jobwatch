@@ -259,13 +259,18 @@ def add_linkedin(tracker, status, flt, li_cfg, user, pw, known):
     kept = 0
     for j in jobs:
         rec = {"title": j["title"], "url": j["url"], "location": j["location"],
-               "posted": "", "department": "", "easy_apply": j.get("easy_apply")}
-        if not flt.keep(rec, {"trust_titles": True}):
+               "posted": "", "department": ""}
+        firm = dedupe.match_firm(j["company"], known) or "Unknown company"
+        # Saved-search alerts are trusted; LinkedIn's own suggestions only when
+        # they come from a firm or recruiter on your list.
+        trusted = j.get("trusted", True) or firm in known
+        if not flt.keep(rec, {"trust_titles": trusted}):
             continue
         kept += 1
-        firm = dedupe.match_firm(j["company"], known) or "Unknown company"
         tracker.add(rec, firm, "LinkedIn alerts", "linkedin")
-        tracker.history[dedupe.role_id(firm, rec["title"])]["easy_apply"] = j.get("easy_apply")
+        saved = tracker.history.get(dedupe.role_id(firm, rec["title"]))
+        if saved is not None and j.get("contact") and not (saved.get("contact") or {}).get("name"):
+            saved["contact"] = j["contact"]
     status.append({"firm": "LinkedIn alerts", "adapter": "gmail", "fetched": len(jobs),
                    "matched": kept, "error": err,
                    "careers_url": "https://www.linkedin.com/jobs/"})
