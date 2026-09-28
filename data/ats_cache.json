@@ -229,14 +229,14 @@
   "config": {
    "ats": "generic"
   },
-  "url": "https://www.macdonaldandcompany.com/.well-known/sgcaptcha/?r=%2Fjobs&y=ipc:4.242.44.211:1790587270.729"
+  "url": "https://www.macdonaldandcompany.com/jobs/"
  },
  "https://www.madisonberkeley.com/jobs": {
   "checked": "2026-09-28",
   "config": {
    "ats": "generic"
   },
-  "url": "https://www.madisonberkeley.com/.well-known/sgcaptcha/?r=%2Fjobs&y=ipc:4.242.44.211:1790587270.741"
+  "url": "https://www.madisonberkeley.com/jobs/"
  },
  "https://www.man.com/careers": {
   "checked": "2026-09-28",
